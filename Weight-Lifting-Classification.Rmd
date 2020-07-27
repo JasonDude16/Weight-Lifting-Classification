@@ -168,7 +168,7 @@ confusionMatrix(predict(mod_rf, training), training$classe)
 ```
 
 ### Summary of Models
-The `treebag`, `gradient boosting`, and `naive bayes` models were all pre-processed using principal components analysis. In a way, the `ensemble` model was as well, because the model combined the `gradient boosting` and `treebag` models which both used PCA. The models were left to their default settings, except the `boosting` and `naive bayes` were both set to `number = 5`. This was done because the models were taking awhile to finish, so I lowered the number to speed up the process. As you can see in the printout summaries, the `Random Forest` model had perfect accuracy, 
+The `treebag`, `gradient boosting`, and `naive bayes` models were all pre-processed using principal components analysis. In a way, the `ensemble` model was as well, because the model combined the `gradient boosting` and `treebag` models which both used PCA. The models were left to their default settings, except the `boosting` and `naive bayes` were both set to `number = 5`. This was done because the models were taking awhile to finish, so I lowered the number to speed up the process. As you can see in the printout summaries the `Random Forest` model had perfect accuracy. 
 
 # Results 
 I implemented the `Random Forest` model for the test set because, after doing a little more research, it seems that this model performs well with noisy data. This information, combined with the 100% accuracy on the training set, made it the sensical choice.
