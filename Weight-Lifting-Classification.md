@@ -69,12 +69,15 @@ few columns were removed which consisted of indexing and time stamps.
 # CREATE DUMMY VARS FOR OUTCOME
 training$classe <- mapvalues(training$classe, c("A", "B", "C", "D", "E"), 0:4)
 training$classe <- as.factor(training$classe)
+
 # REMOVE NA COLUMNS 
 NAs <- unlist(which(colSums(is.na(training)) > 0))
 training <- training[-NAs]
+
 # REMOVE CHAR NA COLUMNS 
 char_NAs <- unlist(which(sapply(training, is.character)))
 training <- training[-char_NAs]
+
 # REMOVE INDEX AND TIMESTAMP COLUMNS
 training <- training[-1:-4]
 ```
