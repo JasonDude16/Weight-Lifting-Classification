@@ -50,7 +50,7 @@ colSums(is.na(training))
 training[,sapply(training, is.character)]
 ```
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
@@ -80,7 +80,7 @@ nearZeroVar(training)
 
 The cleaned dataset consists of `r nrow(training)` rows and `r ncol(training)` columns. Except for the outcome variable, all variables were either integer or numeric.
 
-```{r echo=FALSE}
+```{r eval=FALSE, include=FALSE}
 rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
