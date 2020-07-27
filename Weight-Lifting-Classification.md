@@ -361,8 +361,8 @@ boosting` and `treebag` models which both used PCA. The models were left
 to their default settings, except the `boosting` and `naive bayes` were
 both set to `number = 5`. This was done because the models were taking
 awhile to finish, so I lowered the number to speed up the process. As
-you can see in the printout summaries, the `Random Forest` model had
-perfect accuracy,
+you can see in the printout summaries the `Random Forest` model had
+perfect accuracy.
 
 # Results
 
