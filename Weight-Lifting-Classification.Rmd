@@ -1,6 +1,6 @@
 ---
 title: "Weight Lifting Classification"
-output: github_document
+output: html_document
 always_allow_html: true
 ---
 
