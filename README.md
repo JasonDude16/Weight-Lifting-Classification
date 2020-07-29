@@ -9,7 +9,7 @@ In this analysis, I created several machine learning models with the goal of cla
 ## Results 
 I created 5 models to use on the training set: treebag, gradient boosting, naive bayes, and a random forest. Of these 5 models, the random forest performed the best, achieving 100% accuracy on the training set (over 19,000 observations of time-series data). I implemented the model on a test set which consisted of 20 observations, and the random forest again achieved 100% accuracy.
 
-You can view the analysis by opening the [Weight-Lifting-Classification.md](Weight-Lifting-Classification.md) file.
+You can view the analysis here: https://jasondude16.github.io/Weight-Lifting-Classification/.
 
 ## Data
 * The training data for this project are available here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
