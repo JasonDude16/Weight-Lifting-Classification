@@ -12,5 +12,5 @@ I created 5 models to use on the training set: treebag, gradient boosting, naive
 
 ## Data
 * The data for this project come from this source: http://groupware.les.inf.puc-rio.br/har. 
-* Training data can be downloaded here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+* Train data can be downloaded here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
 * Test data can be downloaded here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
