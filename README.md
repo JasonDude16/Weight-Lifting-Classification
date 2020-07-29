@@ -11,6 +11,6 @@ In this analysis, I created several machine learning models with the goal of cla
 I created 5 models to use on the training set: treebag, gradient boosting, naive bayes, and a random forest. Of these 5 models, the random forest performed the best, achieving 100% accuracy on the training set (over 19,000 observations of time-series data). I implemented the model on a test set which consisted of 20 observations, and the random forest again achieved 100% accuracy.
 
 ## Data
-* The training data for this project are available here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
-* The test data are available here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
+* Training data can be downloaded here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
+* Test data can be downloaded here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-testing.csv
 * The data for this project come from this source: http://groupware.les.inf.puc-rio.br/har. 
