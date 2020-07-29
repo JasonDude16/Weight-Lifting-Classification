@@ -50,7 +50,7 @@ colSums(is.na(training))
 training[,sapply(training, is.character)]
 ```
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=FALSE}
 rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
@@ -75,7 +75,6 @@ training <- training[-1:-4]
 ```
 
 After the dataset was cleaned, the variance of the remained variables was assessed. If the variance was near zero, I would've removed the variables (if it seemed appropriate); but none of the remaining variables had near zero variance. 
-
 ```{r}
 # ASSESS VARIANCE OF REMAINING VARIABLES
 nearZeroVar(training)
@@ -83,19 +82,14 @@ nearZeroVar(training)
 
 The cleaned dataset consists of `r nrow(training)` rows and `r ncol(training)` columns. Except for the outcome variable, all variables were either integer or numeric.
 
-```{r eval=FALSE, include=FALSE}
+```{r echo=FALSE}
 rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
 # Exploratory Analysis
-Below is a histogram of the first 45 columns, which were first scaled. Don't worry, the histograms for the remaining 7 were not very exciting :)
+Below is a shiny app I created to visualize the data. Histograms, boxplots, and scatter plots can be created, data can be grouped or ungrouped, and the scaling can be adjusted. The app initially computed kmeans classification accuracy for the X and Y variable, but unfortunately that feature did not work once the app was uploaded to the shiny server.
 
-```{r cache=TRUE, fig.align='center'}
-for (i in seq(1, 45, by = 9)) {
-  par(mfrow = c(3,3))
-  apply(training[i:(i + 8)], 2, FUN = function(x){hist(scale(x))})
-}
-```
+<iframe src ="https://jason-dude.shinyapps.io/Visualizing-Weight-Classification/" height=700px width=1000 />
 
 # Modeling 
 Now we're on to the fun stuff. This analysis was my first time creating machine learning models, so I decided to try out several classification algorithms rather than attempting to tune the parameters of one algorithm. I wouldn't know how to properly tune the model, anyway, so choosing a variety of models sounded best.  
