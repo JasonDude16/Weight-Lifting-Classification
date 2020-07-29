@@ -1,5 +1,5 @@
 # Weight-Lifting-Classification
-Analysis: https://jasondude16.github.io/Weight-Lifting-Classification/
+Analysis link: https://jasondude16.github.io/Weight-Lifting-Classification/
 
 ## Background
 Using devices such as Jawbone Up, Nike FuelBand, and Fitbit, it is now possible to collect a large amount of data about personal activity relatively inexpensively. These type of devices are part of the quantified self movement – a group of enthusiasts who take measurements about themselves regularly to improve their health, to find patterns in their behavior, or because they are tech geeks. One thing that people regularly do is quantify how much of a particular activity they do, but they rarely quantify how well they do it. 
@@ -9,8 +9,6 @@ In this analysis, I created several machine learning models with the goal of cla
 
 ## Results 
 I created 5 models to use on the training set: treebag, gradient boosting, naive bayes, and a random forest. Of these 5 models, the random forest performed the best, achieving 100% accuracy on the training set (over 19,000 observations of time-series data). I implemented the model on a test set which consisted of 20 observations, and the random forest again achieved 100% accuracy.
-
-You can view the analysis here: https://jasondude16.github.io/Weight-Lifting-Classification/.
 
 ## Data
 * The training data for this project are available here: https://d396qusza40orc.cloudfront.net/predmachlearn/pml-training.csv
