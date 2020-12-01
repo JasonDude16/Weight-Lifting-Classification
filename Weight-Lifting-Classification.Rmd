@@ -1,6 +1,6 @@
 ---
 title: "Weight Lifting Classification"
-output: html_document
+output: github_document
 always_allow_html: true
 ---
 
@@ -9,7 +9,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 # Summary 
-In this analysis, I created several machine learning models with the goal of classifying several variations of a weight lifting exercise (a barbell curl). In some instances, the exercise was performed with good form, and in other instances the the exercise was intentionally performed with poor form (i.e. swinging hips). The model was used to differentiate between 5 variations of the exercise using 3 accelerometers that were placed on the arm, upper arm, and waist (located anteriorly) of 6 participants. An overview of the dataset and where it was collected from can be found [here](http://web.archive.org/web/20161224072740/http:/groupware.les.inf.puc-rio.br/har). 
+In this analysis I created several machine learning models with the goal of classifying several variations of a weight lifting exercise (e.g., barbell curl). In some instances, the exercise was performed with good form, and in other instances the the exercise was intentionally performed with poor form (e.g., swinging hips). The model was used to differentiate between 5 variations of the exercise using 3 accelerometers that were placed on the arm, upper arm, and waist (located anteriorly) of 6 participants. 
+
+An overview of the dataset and where it was collected from can be found [here](http://web.archive.org/web/20161224072740/http:/groupware.les.inf.puc-rio.br/har). 
 
 ```{r include=FALSE, cache=TRUE}
 mod_treebag <- readRDS("./objects/bagging.rds")
@@ -20,7 +22,7 @@ mod_rf <- readRDS("./objects/rf.rds")
 ```
 
 # Importing and Viewing
-The following packages are needed to reproduce the code below. Note that the seed is set at `123` for this entire analysis. 
+The following packages are needed to reproduce the code in this document.
 
 ```{r message=FALSE, warning=FALSE}
 set.seed(123)
@@ -41,7 +43,7 @@ training <- read.csv("./data/pml-training.csv")
 testing <- read.csv("./data/pml-testing.csv")
 ```
 
-Below are the main functions I used to get a feel for the data. I didn't print the results to save space. The full dataset consists of `r nrow(training)` rows and `r ncol(training)` columns.
+Below are the main functions I used to get a feel for the data. I didn't print the results to save space. The dataset consists of `r nrow(training)` rows and `r ncol(training)` columns.
 
 ```{r eval=FALSE}
 str(training)
@@ -54,8 +56,8 @@ training[,sapply(training, is.character)]
 rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
-# Cleaning
-The data cleaning process was very straightforward. I converted the outcome variable to a numeric factor, then removed columns with NAs and empty character values `""`. This removed nearly half of the variables. It's important to note that the variables either had zero NA values or they had a lot (over 90% of the column was empty); there wasn't a single case where a variable had only a few NA values. The columns with mostly NA values were likely aggregated columns, but I decided not to use these variables because of the much smaller sample size. After this, the first few columns were removed which consisted of indexing and time stamps. 
+# Data Cleaning
+For data cleaning/processing, I converted the outcome variable to a numeric factor, then removed columns with NAs and empty character values, `""`. This removed nearly half of the predictor variables. This is because many features were aggregated/summary features; for example, `max_roll_belt`, which consisted only of the maximum roll belt value. These aggregate features could be very useful for more efficient analyses with less variables, but for now I'll leave them out. Additionally, the first few columns were removed which consisted of an indexing variable, a user name variable, and time stamps. 
 
 ```{r}
 # CREATE DUMMY VARS FOR OUTCOME
@@ -87,12 +89,12 @@ rmarkdown::paged_table(training[1:100,], options = list(rows.print = 10))
 ```
 
 # Exploratory Analysis
-Below is a shiny app I created to visualize the data. Histograms, boxplots, and scatter plots can be created, data can be grouped or ungrouped, and the scaling can be adjusted. The app initially computed kmeans classification accuracy for the X and Y variable, but unfortunately that feature did not work once the app was uploaded to the shiny server.
+Below is a shiny app I created to visualize the data. Histograms, boxplots, and scatter plots can be created, data can be grouped or ungrouped, and the scaling can be adjusted. The app initially computed kmeans classification accuracy for the `X` and `Y` variable, but unfortunately that feature did not work once the app was uploaded to the shiny server. The app is certainly not perfect (and honestly not that practical), but I thought it was a cool idea.
 
 <iframe src ="https://jason-dude.shinyapps.io/Visualizing-Weight-Classification/" height=700px width=1000 />
 
 # Modeling 
-Now we're on to the fun stuff. This analysis was my first time creating machine learning models, so I decided to try out several classification algorithms rather than attempting to tune the parameters of one algorithm. 
+Now we're on to the fun stuff, modeling! In the Johns Hopkins University  [Data Science Specialization](https://www.coursera.org/specializations/jhu-data-science) I was exposed to model implementation with the `caret` package. I decided to try out five different models: Treebag, Gradient Boosting, Naive Bayes, Ensemble, and Random Forest. The ensemble model used the combination of the Treebag and Gradient Boosting models. 
 
 ### Treebag Model
 
@@ -165,12 +167,17 @@ confusionMatrix(predict(mod_rf, training), training$classe)
 ```
 
 ### Summary of Models
-The `treebag`, `gradient boosting`, and `naive bayes` models were all pre-processed using principal components analysis. In a way, the `ensemble` model was as well, because the model combined the `gradient boosting` and `treebag` models which both used PCA. The models were left to their default settings, except the `boosting` and `naive bayes` were both set to `number = 5`. This was done because the models were taking awhile to finish, so I lowered the number to speed up the process. As you can see in the printout summaries the `Random Forest` model had perfect accuracy. 
+The `treebag`, `gradient boosting`, and `naive bayes` models were all pre-processed using principal components analysis. The `ensemble` model was as well, because the model combined the `gradient boosting` and `treebag` models which both implemented PCA. The models were left to their default settings, except the `boosting` and `naive bayes` were both set to `number = 5`. This was done because the models were taking awhile to finish, so I lowered the number to speed up the process. As you can see in the printout summaries the `Random Forest` model had perfect accuracy. 
+
+> Note: Pre-processing with PCA in the `caret` package centers and scales the features. 
 
 # Results 
-I implemented the `Random Forest` model for the test set because, after doing a little more research, it seems that this model performs well with noisy data. This information, combined with the 100% accuracy on the training set, made it the sensical choice.
+I implemented the `Random Forest` model for the test set because, after doing a little more research, it seems that this model performs well with noisy data. This information, combined with the 100% accuracy on the training set, made it the sensible choice.
 
 ```{r}
 predictions <- predict(mod_rf, testing)
 factor(predictions, labels = c("A", "B", "C", "D", "E"))
 ```
+
+The testing data did not include the `classe` because this dataset was used as a quiz for the **Practical Machine Learning** on Coursera, but the model achieved 100% accuracy on this small sample! 
+
